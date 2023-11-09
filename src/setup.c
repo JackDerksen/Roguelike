@@ -25,7 +25,6 @@ int screen_setup(void) {
 
   // Set up the screen for a dungeon crawler
   // TODO: Replace this with actual game initialization code
-  printw("Welcome to Jack's Dungeon Crawler! Press the 'q' key to exit.");
 
   // Use a colour pair
   attron(COLOR_PAIR(1));

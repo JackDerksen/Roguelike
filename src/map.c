@@ -7,7 +7,7 @@
 // with the map.
 //
 // In map.h, declare structures for the map and any public functions. In map.c,
-// define these functions. The map_setup() function in setup.c should call an
+// define these functions. The map_setup() function in here should call an
 // initialization function from this module to set up the map.
 
 extern Map game_map;

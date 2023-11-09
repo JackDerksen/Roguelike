@@ -1,6 +1,8 @@
+#include <curses.h>
 #include <ncurses.h>
 
 #include "characters.h"
+#include "collisions.h"
 #include "loot.h"
 #include "map.h"
 #include "setup.h"
@@ -18,26 +20,38 @@ int main(void) {
   map_setup();
   player_setup();
 
+  show_splash_screen();
+
   bool game_running = true;
   while (game_running) {
     draw_map(&game_map);
+    attron(COLOR_PAIR(3));
     mvprintw(player.y, player.x, "@");
+    attroff(COLOR_PAIR(3));
     refresh();
 
     int ch = getch();
 
     switch (ch) {
     case KEY_UP:
-      player.y--;
+      if (!check_collisions(player.x, player.y - 1)) {
+        player.y--;
+      }
       break;
     case KEY_DOWN:
-      player.y++;
+      if (!check_collisions(player.x, player.y + 1)) {
+        player.y++;
+      }
       break;
     case KEY_LEFT:
-      player.x--;
+      if (!check_collisions(player.x - 1, player.y)) {
+        player.x--;
+      }
       break;
     case KEY_RIGHT:
-      player.x++;
+      if (!check_collisions(player.x + 1, player.y)) {
+        player.x++;
+      }
       break;
     case 'q':
       game_running = false;
