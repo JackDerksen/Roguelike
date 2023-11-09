@@ -22,6 +22,7 @@ int main(void) {
 
   show_splash_screen();
 
+  // --------------- Game Loop --------------- //
   bool game_running = true;
   while (game_running) {
     draw_map(&game_map);
