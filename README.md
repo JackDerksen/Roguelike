@@ -1,3 +1,5 @@
+# THIS PROJECT IS UNFINISHED
+
 ## Plan:
   - Dungeon crawler roguelike
   - Random procedural room generation
@@ -14,3 +16,4 @@
 
 ## Style guide:
   - 2 space indents
+  - Snake case function names
