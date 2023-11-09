@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -Isrc -Wall
+CFLAGS := -Isrc -std=c11 -Wall
 LDFLAGS := -lncurses
 BINDIR := bin
 OBJDIR := obj
@@ -26,8 +26,12 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# I should change this later to call gdb debugging
 test: CFLAGS += -DTESTING
 test: $(BINDIR)/$(TARGET)
 
 clean:
-	rm -rf $(BINDIR)/* $(OBJDIR)/*
+	rm -rf $(BINDIR)/* $(OBJDIR)/* src/test
+
+run: all
+	./$(BINDIR)/$(TARGET)
