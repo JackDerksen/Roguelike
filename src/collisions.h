@@ -1,8 +1,8 @@
-#ifndef COLLISIONS_H
-#define COLLISIONS_H
+#ifndef COLLISION_H
+#define COLLISION_H
 
-#include "map.h" // Or wherever I end up defining my map layouts
+#include "map.h"
 
-bool check_collisions(int newX, int newY);
+bool check_collision(Map *map, int newY, int newX);
 
-#endif // COLLISIONS_H
+#endif // COLLISION_H

@@ -17,15 +17,21 @@ int main(void) {
     return 1;
   }
 
-  map_setup();
+  initialize_map(&game_map);
+  generate_map(&game_map);
   player_setup();
-
   show_splash_screen();
 
   // --------------- Game Loop --------------- //
   bool game_running = true;
   while (game_running) {
-    draw_map(&game_map);
+    // Clear the screen, or the relevant portion of it
+    // Render the map
+    for (int y = 0; y < MAP_HEIGHT; y++) {
+      for (int x = 0; x < MAP_WIDTH; x++) {
+        mvprintw(y, x, "%c", game_map.tiles[y][x]);
+      }
+    }
     attron(COLOR_PAIR(3));
     mvprintw(player.y, player.x, "@");
     attroff(COLOR_PAIR(3));
@@ -35,22 +41,22 @@ int main(void) {
 
     switch (ch) {
     case KEY_UP:
-      if (!check_collisions(player.x, player.y - 1)) {
+      if (!check_collision(&game_map, player.x, player.y - 1)) {
         player.y--;
       }
       break;
     case KEY_DOWN:
-      if (!check_collisions(player.x, player.y + 1)) {
+      if (!check_collision(&game_map, player.x, player.y + 1)) {
         player.y++;
       }
       break;
     case KEY_LEFT:
-      if (!check_collisions(player.x - 1, player.y)) {
+      if (!check_collision(&game_map, player.x - 1, player.y)) {
         player.x--;
       }
       break;
     case KEY_RIGHT:
-      if (!check_collisions(player.x + 1, player.y)) {
+      if (!check_collision(&game_map, player.x + 1, player.y)) {
         player.x++;
       }
       break;
