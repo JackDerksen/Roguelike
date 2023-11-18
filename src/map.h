@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
+#define ROOM_MIN_SIZE 5
+#define ROOM_MAX_SIZE 15
 #define MAP_WIDTH 80
 #define MAP_HEIGHT 40
 #define MAX_ROOMS 20

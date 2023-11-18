@@ -1,5 +1,6 @@
-#include <curses.h>
 #include <ncurses.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "characters.h"
 #include "collisions.h"
@@ -17,9 +18,12 @@ int main(void) {
     return 1;
   }
 
+  // Seed the random map generator
+  srand((unsigned)time(NULL));
+
   initialize_map(&game_map);
   generate_map(&game_map);
-  player_setup();
+  player_setup(&game_map);
   show_splash_screen();
 
   // --------------- Game Loop --------------- //
