@@ -39,10 +39,7 @@ void place_player(Map *map) {
 void player_setup(Map *map) {
   player.x = CHARACTER_START_X;
   player.y = CHARACTER_START_Y;
-<<<<<<< HEAD
   player.quadrant = find_quadrant(player.x, player.y);
-=======
->>>>>>> dev
   player.health = CHARACTER_MAX_HEALTH;
   place_player(map);
 }
