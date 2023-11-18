@@ -12,7 +12,7 @@
 // Global variables
 Map game_map;
 Character player;
-char tile_under_player = '.'; // Initialize with the floor character
+char tile_under_player = '.';
 
 int main(void) {
   if (screen_setup() != 0) {
@@ -36,7 +36,7 @@ int main(void) {
     int old_x = player.x;
     int old_y = player.y;
 
-    // Render the map with colors
+    // Render the map using an absurdly dense block of code
     if (first_render) {
       for (int y = 0; y < MAP_HEIGHT; y++) {
         for (int x = 0; x < MAP_WIDTH; x++) {
