@@ -42,6 +42,10 @@ int main(void) {
           attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
           mvprintw(y, x, ".");
           attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
+        } else if (game_map.tiles[y][x] == 'E') {
+          attron(COLOR_PAIR(COLOR_PAIR_EXIT));
+          mvprintw(y, x, "E");
+          attroff(COLOR_PAIR(COLOR_PAIR_EXIT));
         }
       }
     }
@@ -78,13 +82,16 @@ int main(void) {
       game_running = false;
       break;
     }
+
+    // Check if the player reached the exit
+    if (game_map.tiles[player.y][player.x] == 'E') {
+      generate_map(&game_map);
+      player_setup(&game_map);
+    }
+
     clear();
-    // Update the game state
-    // Render to screen
   }
 
-  // Clean up before exiting
   endwin();
-
   return 0;
 }
