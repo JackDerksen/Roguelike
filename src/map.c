@@ -83,9 +83,9 @@ void generate_map(Map *map) {
   // Place an exit in a random room
   if (map->room_count > 0) {
     int random_room_index = rand() % map->room_count;
-    Room exitRoom = map->rooms[random_room_index];
-    int exit_x = rand() % exitRoom.width + exitRoom.x;
-    int exit_y = rand() % exitRoom.height + exitRoom.y;
+    Room exit_room = map->rooms[random_room_index];
+    int exit_x = rand() % exit_room.width + exit_room.x;
+    int exit_y = rand() % exit_room.height + exit_room.y;
     map->tiles[exit_y][exit_x] = 'E';
   }
 

@@ -12,6 +12,7 @@
 // Global variables
 Map game_map;
 Character player;
+char tile_under_player = '.'; // Initialize with the floor character
 
 int main(void) {
   if (screen_setup() != 0) {
@@ -28,30 +29,38 @@ int main(void) {
 
   // --------------- Game Loop --------------- //
   bool game_running = true;
+  bool first_render = true;
+
   while (game_running) {
-    clear();
+
+    int old_x = player.x;
+    int old_y = player.y;
 
     // Render the map with colors
-    for (int y = 0; y < MAP_HEIGHT; y++) {
-      for (int x = 0; x < MAP_WIDTH; x++) {
-        if (game_map.tiles[y][x] == '#') {
-          attron(COLOR_PAIR(COLOR_PAIR_WALLS));
-          mvprintw(y, x, "#");
-          attroff(COLOR_PAIR(COLOR_PAIR_WALLS));
-        } else if (game_map.tiles[y][x] == '.') {
-          attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
-          mvprintw(y, x, ".");
-          attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
-        } else if (game_map.tiles[y][x] == 'E') {
-          attron(COLOR_PAIR(COLOR_PAIR_EXIT));
-          mvprintw(y, x, "E");
-          attroff(COLOR_PAIR(COLOR_PAIR_EXIT));
-        } else if (game_map.tiles[y][x] == 'C') {
-          attron(COLOR_PAIR(COLOR_PAIR_CHEST));
-          mvprintw(y, x, "C");
-          attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
+    if (first_render) {
+      for (int y = 0; y < MAP_HEIGHT; y++) {
+        for (int x = 0; x < MAP_WIDTH; x++) {
+          if (game_map.tiles[y][x] == '#') {
+            attron(COLOR_PAIR(COLOR_PAIR_WALLS));
+            mvprintw(y, x, "#");
+            attroff(COLOR_PAIR(COLOR_PAIR_WALLS));
+          } else if (game_map.tiles[y][x] == '.') {
+            attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
+            mvprintw(y, x, ".");
+            attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
+          } else if (game_map.tiles[y][x] == 'E') {
+            attron(COLOR_PAIR(COLOR_PAIR_EXIT));
+            mvprintw(y, x, "E");
+            attroff(COLOR_PAIR(COLOR_PAIR_EXIT));
+          } else if (game_map.tiles[y][x] == 'C') {
+            attron(COLOR_PAIR(COLOR_PAIR_CHEST));
+            mvprintw(y, x, "C");
+            attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
+          }
         }
       }
+      first_render = false;
+      tile_under_player = game_map.tiles[player.y][player.x];
     }
 
     attron(COLOR_PAIR(3));
@@ -63,22 +72,22 @@ int main(void) {
 
     switch (ch) {
     case KEY_UP:
-      if (!check_collision(&game_map, player.x, player.y - 1)) {
+      if (!check_collision(&game_map, player.y - 1, player.x)) {
         player.y--;
       }
       break;
     case KEY_DOWN:
-      if (!check_collision(&game_map, player.x, player.y + 1)) {
+      if (!check_collision(&game_map, player.y + 1, player.x)) {
         player.y++;
       }
       break;
     case KEY_LEFT:
-      if (!check_collision(&game_map, player.x - 1, player.y)) {
+      if (!check_collision(&game_map, player.y, player.x - 1)) {
         player.x--;
       }
       break;
     case KEY_RIGHT:
-      if (!check_collision(&game_map, player.x + 1, player.y)) {
+      if (!check_collision(&game_map, player.y, player.x + 1)) {
         player.x++;
       }
       break;
@@ -87,14 +96,38 @@ int main(void) {
       break;
     }
 
+    // Redraw the tile that was under the player
+    char old_tile_char =
+        (old_x == player.x && old_y == player.y) ? '@' : tile_under_player;
+    if (old_tile_char == 'C') {
+      attron(COLOR_PAIR(COLOR_PAIR_CHEST));
+    } else {
+      attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
+    }
+    mvprintw(old_y, old_x, "%c", old_tile_char);
+    attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
+    attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
+
+    // Update tile_under_player before redrawing the player
+    tile_under_player = game_map.tiles[player.y][player.x];
+
+    // Draw the player at the new position
+    attron(COLOR_PAIR(3));
+    mvprintw(player.y, player.x, "@");
+    attroff(COLOR_PAIR(3));
+
+    // Refresh the screen
+    refresh();
+
     // Check if the player reached the exit
     if (game_map.tiles[player.y][player.x] == 'E') {
       generate_map(&game_map);
       player_setup(&game_map);
+      first_render = true;
+      continue;
     }
-    // TODO: Add chest looting logic here later
 
-    clear();
+    // TODO: Add chest looting logic here later
   }
 
   endwin();
