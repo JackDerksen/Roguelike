@@ -1,8 +1,6 @@
-#include <ncurses.h>
-
+#include "setup.h"
 #include "characters.h"
 #include "map.h"
-#include "setup.h"
 
 int screen_setup(void) {
   // Initialize the screen
@@ -14,6 +12,8 @@ int screen_setup(void) {
     init_pair(COLOR_PAIR_RED, COLOR_RED, COLOR_BLACK);
     init_pair(COLOR_PAIR_GREEN, COLOR_GREEN, COLOR_BLACK);
     init_pair(COLOR_PAIR_BLUE, COLOR_BLUE, COLOR_BLACK);
+    init_pair(COLOR_PAIR_WALLS, COLOR_WHITE, COLOR_WHITE);
+    init_pair(COLOR_PAIR_FLOORS, COLOR_BLACK, COLOR_BLACK);
   }
 
   // Allow for extended keyboard (like F1, F2 keys etc.)
@@ -22,11 +22,6 @@ int screen_setup(void) {
   noecho();
   // Hide the cursor
   curs_set(0);
-
-  // Use a colour pair
-  attron(COLOR_PAIR(1));
-  printw(" This text is red on black.");
-  attroff(COLOR_PAIR(1));
 
   // Refresh the screen to see changes
   refresh();

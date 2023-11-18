@@ -1,7 +1,5 @@
 #include "map.h"
 
-#include <stdlib.h>
-
 void initialize_map(Map *map) {
   for (int y = 0; y < MAP_HEIGHT; y++) {
     for (int x = 0; x < MAP_WIDTH; x++) {
@@ -11,7 +9,7 @@ void initialize_map(Map *map) {
   map->room_count = 0; // Reset room count
 }
 
-Room create_random_room() {
+Room create_random_room(void) {
   Room room;
 
   room.width = rand() % (ROOM_MAX_SIZE - ROOM_MIN_SIZE + 1) + ROOM_MIN_SIZE;
@@ -77,5 +75,20 @@ void generate_map(Map *map) {
         connect_rooms(map, map->rooms[map->room_count - 2], new_room);
       }
     }
+  }
+}
+
+int find_quadrant(int x, int y) {
+  int half_x = MAP_WIDTH / 2;
+  int half_y = MAP_HEIGHT / 2;
+
+  if ((x < half_x) && (y < half_y)) {
+    return 1; // Top left
+  } else if ((x > half_x) && (y < half_y)) {
+    return 2; // Top right
+  } else if ((x < half_x) && (y > half_y)) {
+    return 3; // Bottom left
+  } else {
+    return 4; // Bottom right
   }
 }
