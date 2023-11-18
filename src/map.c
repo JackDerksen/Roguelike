@@ -1,5 +1,3 @@
-// map.c
-
 #include "map.h"
 
 #include <stdlib.h>
@@ -15,8 +13,9 @@ void initialize_map(Map *map) {
 
 Room create_random_room() {
   Room room;
-  room.width = rand() % 6 + 5;  // Random width from 5 to 10
-  room.height = rand() % 6 + 5; // Random height from 5 to 10
+
+  room.width = rand() % (ROOM_MAX_SIZE - ROOM_MIN_SIZE + 1) + ROOM_MIN_SIZE;
+  room.height = rand() % (ROOM_MAX_SIZE - ROOM_MIN_SIZE + 1) + ROOM_MIN_SIZE;
 
   // Ensure room fits within the map boundaries
   room.x = rand() % (MAP_WIDTH - room.width - 1) + 1;

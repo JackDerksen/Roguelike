@@ -1,11 +1,16 @@
 #include "collisions.h"
 
-bool check_collision(Map *map, int newY, int newX) {
-  // Check map boundaries
-  if (newY < 0 || newY >= MAP_HEIGHT || newX < 0 || newX >= MAP_WIDTH) {
-    return true; // Out of bounds
+// Assuming '#' represents a wall and '.' represents a walkable tile
+bool check_collision(Map *map, int newX, int newY) {
+  // Check map boundaries first
+  if (newX < 0 || newX >= MAP_WIDTH || newY < 0 || newY >= MAP_HEIGHT) {
+    return true; // Position is out of bounds
   }
 
   // Check if the tile is walkable
-  return map->tiles[newY][newX] == '#'; // '#' represents a wall
+  if (map->tiles[newY][newX] == '#') {
+    return true; // Position is a wall, hence not walkable
+  }
+
+  return false; // Position is within bounds and not a wall, hence walkable
 }

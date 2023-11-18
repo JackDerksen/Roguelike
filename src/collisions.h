@@ -3,6 +3,6 @@
 
 #include "map.h"
 
-bool check_collision(Map *map, int newY, int newX);
+bool check_collision(Map *map, int newX, int newY);
 
 #endif // COLLISION_H

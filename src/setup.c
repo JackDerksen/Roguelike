@@ -11,9 +11,9 @@ int screen_setup(void) {
   if (has_colors()) {
     // Start colours in ncurses if the user's terminal supports it
     start_color();
-    init_pair(1, COLOR_RED, COLOR_BLACK);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);
-    init_pair(3, COLOR_BLUE, COLOR_BLACK);
+    init_pair(COLOR_PAIR_RED, COLOR_RED, COLOR_BLACK);
+    init_pair(COLOR_PAIR_GREEN, COLOR_GREEN, COLOR_BLACK);
+    init_pair(COLOR_PAIR_BLUE, COLOR_BLUE, COLOR_BLACK);
   }
 
   // Allow for extended keyboard (like F1, F2 keys etc.)
@@ -22,9 +22,6 @@ int screen_setup(void) {
   noecho();
   // Hide the cursor
   curs_set(0);
-
-  // Set up the screen for a dungeon crawler
-  // TODO: Replace this with actual game initialization code
 
   // Use a colour pair
   attron(COLOR_PAIR(1));
