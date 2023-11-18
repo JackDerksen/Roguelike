@@ -9,6 +9,7 @@
 #define MAP_WIDTH 80
 #define MAP_HEIGHT 30
 #define MAX_ROOMS 15
+#define MAX_CHESTS 5
 
 // Utility macros
 #define min(a, b) ((a) < (b) ? (a) : (b))
@@ -33,6 +34,5 @@ Room create_random_room();
 bool place_room(Map *map, Room room);
 void connect_rooms(Map *map, Room room1, Room room2);
 void generate_map(Map *map);
-int find_quadrant(int x, int y);
 
 #endif // MAP_H

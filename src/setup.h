@@ -9,6 +9,7 @@
 #define COLOR_PAIR_WALLS 4
 #define COLOR_PAIR_FLOORS 5
 #define COLOR_PAIR_EXIT 6
+#define COLOR_PAIR_CHEST 7
 
 int screen_setup(void);
 

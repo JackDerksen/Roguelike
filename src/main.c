@@ -46,6 +46,10 @@ int main(void) {
           attron(COLOR_PAIR(COLOR_PAIR_EXIT));
           mvprintw(y, x, "E");
           attroff(COLOR_PAIR(COLOR_PAIR_EXIT));
+        } else if (game_map.tiles[y][x] == 'C') {
+          attron(COLOR_PAIR(COLOR_PAIR_CHEST));
+          mvprintw(y, x, "C");
+          attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
         }
       }
     }
@@ -88,6 +92,7 @@ int main(void) {
       generate_map(&game_map);
       player_setup(&game_map);
     }
+    // TODO: Add chest looting logic here later
 
     clear();
   }

@@ -30,10 +30,12 @@ void show_splash_screen(void) {
   }
 
   printw("\n");
-  printw("                            Press any key to start.\n");
+  printw("                             Press any key to start.\n");
   printw("\n");
-  printw("                            Press 'q' to quit, and\n");
-  printw("                            use arrow keys to move.\n");
+  printw("                              Reach the exit 'E'.\n");
+  printw("\n");
+  printw("                             Press 'q' to quit, and\n");
+  printw("                             use arrow keys to move.\n");
   refresh();
   getch();
 }

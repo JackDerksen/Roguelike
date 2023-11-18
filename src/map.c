@@ -67,8 +67,10 @@ void connect_rooms(Map *map, Room room1, Room room2) {
   }
 }
 
+// Big boy function right here
 void generate_map(Map *map) {
   initialize_map(map);
+
   while (map->room_count < MAX_ROOMS) {
     Room new_room = create_random_room();
     if (place_room(map, new_room)) {
@@ -80,25 +82,25 @@ void generate_map(Map *map) {
 
   // Place an exit in a random room
   if (map->room_count > 0) {
-    int randomRoomIndex = rand() % map->room_count;
-    Room exitRoom = map->rooms[randomRoomIndex];
-    int exitX = rand() % exitRoom.width + exitRoom.x;
-    int exitY = rand() % exitRoom.height + exitRoom.y;
-    map->tiles[exitY][exitX] = 'E';
+    int random_room_index = rand() % map->room_count;
+    Room exitRoom = map->rooms[random_room_index];
+    int exit_x = rand() % exitRoom.width + exitRoom.x;
+    int exit_y = rand() % exitRoom.height + exitRoom.y;
+    map->tiles[exit_y][exit_x] = 'E';
   }
-}
 
-int find_quadrant(int x, int y) {
-  int half_x = MAP_WIDTH / 2;
-  int half_y = MAP_HEIGHT / 2;
+  // Populate the rooms with chests
+  int chests_placed = 0;
+  while (chests_placed < MAX_CHESTS && chests_placed < map->room_count) {
+    int random_room_index = rand() % map->room_count;
+    Room chest_room = map->rooms[random_room_index];
+    int chest_x = rand() % chest_room.width + chest_room.x;
+    int chest_y = rand() % chest_room.height + chest_room.y;
 
-  if ((x < half_x) && (y < half_y)) {
-    return 1; // Top left
-  } else if ((x > half_x) && (y < half_y)) {
-    return 2; // Top right
-  } else if ((x < half_x) && (y > half_y)) {
-    return 3; // Bottom left
-  } else {
-    return 4; // Bottom right
+    // Make sure the spot isn't taken by something else
+    if (map->tiles[chest_y][chest_x] == '.') {
+      map->tiles[chest_y][chest_x] = 'C';
+      chests_placed++;
+    }
   }
 }
