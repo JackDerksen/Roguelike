@@ -1,7 +1,5 @@
 #include "map.h"
 
-#include <stdlib.h>
-
 void initialize_map(Map *map) {
   for (int y = 0; y < MAP_HEIGHT; y++) {
     for (int x = 0; x < MAP_WIDTH; x++) {
@@ -11,7 +9,7 @@ void initialize_map(Map *map) {
   map->room_count = 0; // Reset room count
 }
 
-Room create_random_room() {
+Room create_random_room(void) {
   Room room;
 
   room.width = rand() % (ROOM_MAX_SIZE - ROOM_MIN_SIZE + 1) + ROOM_MIN_SIZE;
@@ -47,6 +45,7 @@ bool place_room(Map *map, Room room) {
 
   // Add room to the map's room list
   map->rooms[map->room_count++] = room;
+
   return true;
 }
 
@@ -77,5 +76,14 @@ void generate_map(Map *map) {
         connect_rooms(map, map->rooms[map->room_count - 2], new_room);
       }
     }
+  }
+
+  // Place an exit in a random room
+  if (map->room_count > 0) {
+    int randomRoomIndex = rand() % map->room_count;
+    Room exitRoom = map->rooms[randomRoomIndex];
+    int exitX = rand() % exitRoom.width + exitRoom.x;
+    int exitY = rand() % exitRoom.height + exitRoom.y;
+    map->tiles[exitY][exitX] = 'E';
   }
 }

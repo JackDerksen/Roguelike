@@ -1,4 +1,5 @@
 #include "characters.h"
+#include "map.h"
 
 // This module should contain all of the functions and data structures related
 // to each character (player, enemies, npcs, etc.) and their statistics,

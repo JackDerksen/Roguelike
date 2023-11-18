@@ -1,5 +1,3 @@
-#include <ncurses.h>
-
 #include "splash.h"
 
 void show_splash_screen(void) {
