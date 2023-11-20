@@ -3,7 +3,6 @@
 #include "map.h"
 
 int screen_setup(void) {
-  // Initialize the screen
   initscr();
 
   if (has_colors()) {

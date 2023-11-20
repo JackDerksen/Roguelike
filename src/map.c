@@ -22,8 +22,6 @@ Room create_random_room(void) {
   return room;
 }
 
-// In map.c
-
 bool place_room(Map *map, Room room) {
   // Check for overlap with existing rooms
   for (int i = 0; i < map->room_count; i++) {
