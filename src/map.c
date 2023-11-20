@@ -1,5 +1,11 @@
 #include "map.h"
 
+// I'm basically generating my maps by creating a big rectangle of wall tiles
+// and then "digging out" the rooms and the tunnels that connect them.
+// Procedural map generation felt like a more fun approach to me than simply
+// hadr-coding my map layouts. This will also obviously keep things feeling
+// fresh when I play the game over and over again for testing :)
+
 void initialize_map(Map *map) {
   for (int y = 0; y < MAP_HEIGHT; y++) {
     for (int x = 0; x < MAP_WIDTH; x++) {

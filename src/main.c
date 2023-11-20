@@ -64,10 +64,11 @@ int main(void) {
     }
 
     attron(COLOR_PAIR(3));
-    mvprintw(player.y, player.x, "@");
+    mvprintw(player.y, player.x, "@"); // Cute little guy, eh?
     attroff(COLOR_PAIR(3));
     refresh();
 
+    // Get/handle inputs
     int ch = getch();
 
     switch (ch) {

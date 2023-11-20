@@ -12,8 +12,12 @@ Icons:
   - Story/dialogue
 
   If I have time:
-  - Classes (mana for a mage class)
+  - Classes (mana for a mage class, maybe?)
   - 
+
+## Suggestions:
+  - I should maybe try handling the user inputs in a function, if I can figure
+  that out.
 
 
 ## TODO:
