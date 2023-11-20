@@ -3,7 +3,7 @@
 void initialize_map(Map *map) {
   for (int y = 0; y < MAP_HEIGHT; y++) {
     for (int x = 0; x < MAP_WIDTH; x++) {
-      map->tiles[y][x] = '#'; // Default to wall
+      map->tiles[y][x] = '#'; // Default to a wall tile
     }
   }
   map->room_count = 0; // Reset room count

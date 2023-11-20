@@ -116,7 +116,6 @@ int main(void) {
     mvprintw(player.y, player.x, "@");
     attroff(COLOR_PAIR(3));
 
-    // Refresh the screen
     refresh();
 
     // Check if the player reached the exit
@@ -127,7 +126,7 @@ int main(void) {
       continue;
     }
 
-    // TODO: Add chest looting logic here later
+    // TODO: Add chest looting/interaction logic here later
   }
 
   endwin();

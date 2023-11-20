@@ -10,7 +10,6 @@
 
 typedef struct {
   int x, y; // Position on the map
-  int quadrant;
   int health;
 } Character;
 

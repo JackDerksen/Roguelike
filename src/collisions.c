@@ -1,6 +1,5 @@
 #include "collisions.h"
 
-// Assuming '#' represents a wall and '.' represents a walkable tile
 bool check_collision(Map *map, int new_y, int new_x) {
   // Check map boundaries first
   if (new_x < 0 || new_x >= MAP_WIDTH || new_y < 0 || new_y >= MAP_HEIGHT) {

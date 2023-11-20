@@ -24,7 +24,6 @@ int screen_setup(void) {
   // Hide the cursor
   curs_set(0);
 
-  // Refresh the screen to see changes
   refresh();
 
   return 0;
