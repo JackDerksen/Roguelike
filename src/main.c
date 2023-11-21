@@ -92,6 +92,29 @@ int main(void) {
         player.x++;
       }
       break;
+
+    // Adding some vim movement keybinds because why not
+    case 'k':
+      if (!check_collision(&game_map, player.y - 1, player.x)) {
+        player.y--;
+      }
+      break;
+    case 'j':
+      if (!check_collision(&game_map, player.y + 1, player.x)) {
+        player.y++;
+      }
+      break;
+    case 'h':
+      if (!check_collision(&game_map, player.y, player.x - 1)) {
+        player.x--;
+      }
+      break;
+    case 'l':
+      if (!check_collision(&game_map, player.y, player.x + 1)) {
+        player.x++;
+      }
+      break;
+
     case 'q':
       game_running = false;
       break;
