@@ -18,6 +18,9 @@ Icons:
 ## Suggestions:
   - I should maybe try handling the user inputs in a function, if I can figure
   that out.
+  - Going off that previous suggestion, I just need to make the main function
+    cleaner overall
+  - Should probably add more documentation (doc comment for each file, maybe?)
 
 
 ## TODO:
@@ -32,15 +35,24 @@ Icons:
      - Place an exit somewhere on the map
      - Generate a new level once the player reaches the exit
      - Populate the rooms with chests and stuff (placeholders for now)
-     - Get pausing to work 
+   - Get pausing to work 
+  - Prompt the user if they're sure they want to quit
+  - Turn the input handler code into a function for cleanliness
+  - Turn the initial game rendering code (that super dense code block) into a 
+   function as well.
 
-
-  All set for now, chief :)
 
 ### From the project instructions PDF:
-   - Question 1: Make a group
-   - Question 2: Create project structure
-   - Question 3: Develop game idea
-   - Question 4: Create main function and file
-   - Question 5: Create a splash screen
-   - Question 6: Code levels (I will generate them procedurally)
+  Milestone 1:
+     - Question 1: Make a group
+     - Question 2: Create project structure
+     - Question 3: Develop game idea
+     - Question 4: Create main function and file
+     - Question 5: Create a splash screen
+     - Question 6: Code levels (I will generate them procedurally)
+
+  Milestone 2:
+    - Player movement (already done)
+    - Pausing
+    - Quit prompt (are you sure you want to quit?)
+    - Make some more interactable stuff, or things that affect the map

@@ -1,6 +1,4 @@
 #include "setup.h"
-#include "characters.h"
-#include "map.h"
 
 int screen_setup(void) {
   initscr();
@@ -15,6 +13,7 @@ int screen_setup(void) {
     init_pair(COLOR_PAIR_FLOORS, COLOR_BLACK, COLOR_BLACK);
     init_pair(COLOR_PAIR_EXIT, COLOR_BLACK, COLOR_GREEN);
     init_pair(COLOR_PAIR_CHEST, COLOR_BLACK, COLOR_YELLOW);
+    init_pair(COLOR_PAIR_GAME_TEXT, COLOR_BLACK, COLOR_WHITE);
   }
 
   // Allow for extended keyboard (like F1, F2 keys etc.)

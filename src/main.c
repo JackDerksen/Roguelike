@@ -1,10 +1,9 @@
-#include <curses.h>
-#include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
 
 #include "characters.h"
 #include "collisions.h"
+#include "game_control.h"
 #include "loot.h"
 #include "map.h"
 #include "setup.h"
@@ -31,145 +30,47 @@ int main(void) {
   // --------------- Game Loop --------------- //
   bool game_running = true;
   bool first_render = true;
-  bool game_paused = false;
 
   while (game_running) {
-
-    int old_x = player.x;
-    int old_y = player.y;
-
-    if (!game_paused) {
-      // Render the map using an absurdly dense block of code
-      if (first_render) {
-        for (int y = 0; y < MAP_HEIGHT; y++) {
-          for (int x = 0; x < MAP_WIDTH; x++) {
-            if (game_map.tiles[y][x] == '#') {
-              attron(COLOR_PAIR(COLOR_PAIR_WALLS));
-              mvprintw(y, x, "#");
-              attroff(COLOR_PAIR(COLOR_PAIR_WALLS));
-            } else if (game_map.tiles[y][x] == '.') {
-              attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
-              mvprintw(y, x, ".");
-              attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
-            } else if (game_map.tiles[y][x] == 'E') {
-              attron(COLOR_PAIR(COLOR_PAIR_EXIT));
-              mvprintw(y, x, "E");
-              attroff(COLOR_PAIR(COLOR_PAIR_EXIT));
-            } else if (game_map.tiles[y][x] == 'C') {
-              attron(COLOR_PAIR(COLOR_PAIR_CHEST));
-              mvprintw(y, x, "C");
-              attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
-            }
-          }
-        }
-        first_render = false;
-        tile_under_player = game_map.tiles[player.y][player.x];
-      }
-
-      attron(COLOR_PAIR(3));
-      mvprintw(player.y, player.x, "@"); // Cute little guy, eh?
-      attroff(COLOR_PAIR(3));
-      refresh();
-
-      // Get/handle inputs
-      int ch = getch();
-
-      switch (ch) {
-      case KEY_UP:
-        if (!check_collision(&game_map, player.y - 1, player.x)) {
-          player.y--;
-        }
-        break;
-      case KEY_DOWN:
-        if (!check_collision(&game_map, player.y + 1, player.x)) {
-          player.y++;
-        }
-        break;
-      case KEY_LEFT:
-        if (!check_collision(&game_map, player.y, player.x - 1)) {
-          player.x--;
-        }
-        break;
-      case KEY_RIGHT:
-        if (!check_collision(&game_map, player.y, player.x + 1)) {
-          player.x++;
-        }
-        break;
-
-      // Adding some vim movement keybinds because why not
-      case 'k':
-        if (!check_collision(&game_map, player.y - 1, player.x)) {
-          player.y--;
-        }
-        break;
-      case 'j':
-        if (!check_collision(&game_map, player.y + 1, player.x)) {
-          player.y++;
-        }
-        break;
-      case 'h':
-        if (!check_collision(&game_map, player.y, player.x - 1)) {
-          player.x--;
-        }
-        break;
-      case 'l':
-        if (!check_collision(&game_map, player.y, player.x + 1)) {
-          player.x++;
-        }
-        break;
-
-      case 'q':
-        game_running = false;
-        break;
-      }
-
-      if (ch == 'p') {
-        game_paused = true;
-        mvprintw(0, 0, "Game paused. Press 'p' to resume.");
-        refresh();
-      }
-
-      // Redraw the tile that was under the player
-      char old_tile_char =
-          (old_x == player.x && old_y == player.y) ? '@' : tile_under_player;
-      if (old_tile_char == 'C') {
-        attron(COLOR_PAIR(COLOR_PAIR_CHEST));
-      } else {
-        attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
-      }
-      mvprintw(old_y, old_x, "%c", old_tile_char);
-      attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
-      attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
-
-      // Update tile_under_player before redrawing the player
+    if (first_render) {
+      render_map(&game_map);
+      first_render = false;
       tile_under_player = game_map.tiles[player.y][player.x];
-
-      // Draw the player at the new position
-      attron(COLOR_PAIR(3));
-      mvprintw(player.y, player.x, "@");
-      attroff(COLOR_PAIR(3));
-
-      refresh();
-
-      // Check if the player reached the exit
-      if (game_map.tiles[player.y][player.x] == 'E') {
-        generate_map(&game_map);
-        player_setup(&game_map);
-        first_render = true;
-        continue;
-      }
-    } else {
-      int ch = getch();
-      if (ch == 'p') {
-        game_paused = false;
-        first_render = true;
-        clear();
-      }
     }
 
-    // TODO: Add chest looting/interaction logic here later
+    attron(COLOR_PAIR(3));
+    mvprintw(player.y, player.x, "@");
+    attroff(COLOR_PAIR(3));
+    refresh();
+
+    // Get/handle inputs
+    int ch = getch();
+
+    if (ch == 'p') {
+      pause_game();
+      first_render = true;
+    } else if (ch == 'q') {
+      if (confirm_quit()) {
+        game_running = false;
+      } else {
+        first_render = true;
+      }
+    } else {
+      move_player(ch, &player, &game_map);
+    }
+
+    // Redraw only the tile that was under the player
+    optimized_redraw(&player, &tile_under_player, &game_map);
+
+    // Check if the player reached the exit
+    if (game_map.tiles[player.y][player.x] == 'E') {
+      generate_map(&game_map);
+      player_setup(&game_map);
+      first_render = true;
+    }
   }
 
   endwin();
   return 0;
 }
+
