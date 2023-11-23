@@ -108,3 +108,27 @@ void generate_map(Map *map) {
     }
   }
 }
+
+void render_map(const Map *map) {
+  for (int y = 0; y < MAP_HEIGHT; y++) {
+    for (int x = 0; x < MAP_WIDTH; x++) {
+      if (map->tiles[y][x] == '#') {
+        attron(COLOR_PAIR(COLOR_PAIR_WALLS));
+        mvprintw(y, x, "#");
+        attroff(COLOR_PAIR(COLOR_PAIR_WALLS));
+      } else if (map->tiles[y][x] == '.') {
+        attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
+        mvprintw(y, x, ".");
+        attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
+      } else if (map->tiles[y][x] == 'E') {
+        attron(COLOR_PAIR(COLOR_PAIR_EXIT));
+        mvprintw(y, x, "E");
+        attroff(COLOR_PAIR(COLOR_PAIR_EXIT));
+      } else if (map->tiles[y][x] == 'C') {
+        attron(COLOR_PAIR(COLOR_PAIR_CHEST));
+        mvprintw(y, x, "C");
+        attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
+      }
+    }
+  }
+}

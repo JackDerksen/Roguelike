@@ -1,6 +1,8 @@
 #ifndef MAP_H
 #define MAP_H
 
+#include "setup.h"
+#include <ncurses.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -36,5 +38,6 @@ Room create_random_room();
 bool place_room(Map *map, Room room);
 void connect_rooms(Map *map, Room room1, Room room2);
 void generate_map(Map *map);
+void render_map(const Map *map);
 
 #endif // MAP_H
