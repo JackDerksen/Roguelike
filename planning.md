@@ -32,6 +32,8 @@ Icons:
      - Place an exit somewhere on the map
      - Generate a new level once the player reaches the exit
      - Populate the rooms with chests and stuff (placeholders for now)
+     - Get pausing to work 
+
 
   All set for now, chief :)
 

@@ -34,8 +34,9 @@ void show_splash_screen(void) {
   printw("\n");
   printw("                              Reach the exit 'E'.\n");
   printw("\n");
-  printw("                             Press 'q' to quit, and\n");
-  printw("                             use arrow keys to move.\n");
+  printw("                            Press 'q' to quit, and use\n");
+  printw("                           arrow keys or 'hjkl' to move.\n");
+  printw("                           Press 'p' to pause the game.\n");
   refresh();
   getch();
 }
