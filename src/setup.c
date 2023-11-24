@@ -14,6 +14,8 @@ int screen_setup(void) {
     init_pair(COLOR_PAIR_EXIT, COLOR_BLACK, COLOR_GREEN);
     init_pair(COLOR_PAIR_CHEST, COLOR_BLACK, COLOR_YELLOW);
     init_pair(COLOR_PAIR_GAME_TEXT, COLOR_BLACK, COLOR_WHITE);
+    init_pair(COLOR_PAIR_HEALTH, COLOR_RED, COLOR_RED);
+    init_pair(COLOR_PAIR_ARMOUR, COLOR_GREEN, COLOR_GREEN);
   }
 
   // Allow for extended keyboard (like F1, F2 keys etc.)
