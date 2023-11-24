@@ -16,9 +16,9 @@ Icons:
   - 
 
 ## Suggestions:
-  - I should maybe try handling the user inputs in a function, if I can figure
-  that out.
-  - Going off that previous suggestion, I just need to make the main function
+   - I should maybe try handling the user inputs in a function, if I can figure
+    that out.
+   - Going off that previous suggestion, I just need to make the main function
     cleaner overall
   - Should probably add more documentation (doc comment for each file, maybe?)
 
@@ -36,9 +36,9 @@ Icons:
      - Generate a new level once the player reaches the exit
      - Populate the rooms with chests and stuff (placeholders for now)
    - Get pausing to work 
-  - Prompt the user if they're sure they want to quit
-  - Turn the input handler code into a function for cleanliness
-  - Turn the initial game rendering code (that super dense code block) into a 
+   - Prompt the user if they're sure they want to quit
+   - Turn the input handler code into a function for cleanliness
+   - Turn the initial game rendering code (that super dense code block) into a 
    function as well.
 
 
@@ -52,7 +52,7 @@ Icons:
      - Question 6: Code levels (I will generate them procedurally)
 
   Milestone 2:
-    - Player movement (already done)
-    - Pausing
-    - Quit prompt (are you sure you want to quit?)
+    - Player movement (already done)
+    - Pausing
+    - Quit prompt (are you sure you want to quit?)
     - Make some more interactable stuff, or things that affect the map

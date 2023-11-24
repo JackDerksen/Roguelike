@@ -11,6 +11,8 @@
 #define COLOR_PAIR_EXIT 6
 #define COLOR_PAIR_CHEST 7
 #define COLOR_PAIR_GAME_TEXT 8
+#define COLOR_PAIR_HEALTH 9
+#define COLOR_PAIR_ARMOUR 10
 
 int screen_setup(void);
 

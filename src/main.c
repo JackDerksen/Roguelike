@@ -1,3 +1,4 @@
+#include <curses.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -12,6 +13,7 @@
 // Global variables
 Map game_map;
 Character player;
+Character orc;
 char tile_under_player = '.';
 
 int main(void) {
@@ -38,10 +40,11 @@ int main(void) {
       tile_under_player = game_map.tiles[player.y][player.x];
     }
 
+    draw_character_status(&player);
+
     attron(COLOR_PAIR(3));
     mvprintw(player.y, player.x, "@");
     attroff(COLOR_PAIR(3));
-    refresh();
 
     // Get/handle inputs
     int ch = getch();
@@ -57,10 +60,13 @@ int main(void) {
       }
     } else {
       move_player(ch, &player, &game_map);
-    }
 
-    // Redraw only the tile that was under the player
-    optimized_redraw(&player, &tile_under_player, &game_map);
+      if (player.move_counter >= 3) {
+        move(MAP_HEIGHT + 1, 27);
+        clrtoeol();
+        player.move_counter = 0;
+      }
+    }
 
     // Check if the player reached the exit
     if (game_map.tiles[player.y][player.x] == 'E') {
@@ -68,9 +74,23 @@ int main(void) {
       player_setup(&game_map);
       first_render = true;
     }
+
+    // Get loot from a chest
+    if (game_map.tiles[player.y][player.x] == 'C') {
+      LootType loot = generate_random_loot();
+      handle_loot(&player, loot);
+
+      // Replace the now looted chest with a floor tile
+      game_map.tiles[player.y][player.x] = '.';
+      optimized_redraw(&player, &tile_under_player, &game_map);
+    }
+
+    // Redraw only the tile that was under the player
+    optimized_redraw(&player, &tile_under_player, &game_map);
+
+    refresh();
   }
 
   endwin();
   return 0;
 }
-
