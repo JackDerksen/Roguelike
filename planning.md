@@ -40,6 +40,7 @@ Icons:
    - Turn the input handler code into a function for cleanliness
    - Turn the initial game rendering code (that super dense code block) into a 
    function as well.
+  - Fix player_has_sword flag (not working right now)
 
 
 ### From the project instructions PDF:

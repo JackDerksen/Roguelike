@@ -13,7 +13,6 @@
 // Global variables
 Map game_map;
 Character player;
-Character orc;
 char tile_under_player = '.';
 
 int main(void) {
@@ -62,7 +61,7 @@ int main(void) {
       move_player(ch, &player, &game_map);
 
       if (player.move_counter >= 3) {
-        move(MAP_HEIGHT + 1, 27);
+        move(MAP_HEIGHT, 0);
         clrtoeol();
         player.move_counter = 0;
       }
@@ -71,7 +70,7 @@ int main(void) {
     // Check if the player reached the exit
     if (game_map.tiles[player.y][player.x] == 'E') {
       generate_map(&game_map);
-      player_setup(&game_map);
+      place_player_in_new_level(&game_map);
       first_render = true;
     }
 

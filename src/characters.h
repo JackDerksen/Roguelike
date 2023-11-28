@@ -17,11 +17,12 @@ typedef struct {
   int max_armour;
   int damage;
   int move_counter;
+  bool has_sword;
 } Character;
 
-void initialize_character(Character *character);
 void draw_character(const Character *character);
 void place_player(Map *map);
+void place_player_in_new_level(Map *map);
 void player_setup(Map *map);
 void move_player(int ch, Character *player, Map *map);
 void optimized_redraw(Character *player, char *tile_under_player, Map *map);
