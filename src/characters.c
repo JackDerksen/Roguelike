@@ -1,5 +1,6 @@
 #include "characters.h"
 #include "map.h"
+#include <curses.h>
 
 // This module should contain all of the functions and data structures related
 // to each character (player, enemies, npcs, etc.) and their statistics,
@@ -7,15 +8,6 @@
 
 extern Character player;
 extern Character orc;
-
-// Will be used again for other character instances (enemies, npcs, etc.)
-void initialize_character(Character *character) {
-  character->x = CHARACTER_START_X;
-  character->y = CHARACTER_START_Y;
-  character->health = character->max_health;
-  character->armour = character->max_armour;
-  // Other initializations
-}
 
 void draw_character(const Character *character) {
   mvprintw(character->y, character->x, "@");
@@ -33,6 +25,12 @@ void place_player(Map *map) {
   }
 }
 
+void place_player_in_new_level(Map *map) {
+  place_player(map);
+  player.old_x = player.x;
+  player.old_y = player.y;
+}
+
 void player_setup(Map *map) {
   player.x = CHARACTER_START_X;
   player.y = CHARACTER_START_Y;
@@ -42,6 +40,7 @@ void player_setup(Map *map) {
   player.max_armour = 50;
   player.health = player.max_health;
   player.armour = player.max_armour;
+  player.has_sword = false;
   place_player(map);
 }
 
@@ -71,7 +70,15 @@ void move_player(int ch, Character *player, Map *map) {
   case 'l': // Vim keybinding for right
     new_x++;
     break;
-    // Add more cases if there are more controls down the line
+  case 'a':
+    player->health -= 10;
+    break;
+  case 's':
+    player->armour -= 10;
+    break;
+  case 'd':
+    player->damage -= 10;
+    break;
   }
 
   player->move_counter++;
@@ -87,6 +94,9 @@ void move_player(int ch, Character *player, Map *map) {
 void draw_status_bar(int y, int x, int current, int max, int color_pair) {
   int width = 25; // Max width of the status bar
   int filled = (int)(((float)current / (float)max) * width);
+
+  move(y, x);
+  clrtoeol();
 
   attron(COLOR_PAIR(color_pair));
   for (int i = 0; i < filled; i++) {
@@ -104,6 +114,10 @@ void draw_character_status(const Character *player) {
 
   draw_status_bar(status_bar_y + 1, 0, player->armour / 2,
                   player->max_armour / 2, COLOR_PAIR_ARMOUR);
+
+  mvprintw(status_bar_y + 2, 0, "Player health: %d", player->health);
+  mvprintw(status_bar_y + 3, 0, "Player armour: %d", player->armour);
+  mvprintw(status_bar_y + 4, 0, "Player damage: %d", player->damage);
 }
 
 // This optimizes the screen refresh by only redrawing where the player was
