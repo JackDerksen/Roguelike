@@ -1,13 +1,13 @@
 #include "loot.h"
-#include "characters.h"
+#include "player.h"
 #include "map.h"
 
 // This file will contain a list of all the possible loot (armour, weapons,
 // potions, etc.), and some logic for looting chests. Maybe also for getting
-// gold from enemies, although that might be better suited to the characters
+// gold from enemies, although that might be better suited to the player
 // file (?).
 
-void handle_loot(Character *player, LootType loot) {
+void handle_loot(Player *player, LootType loot) {
   switch (loot) {
   case LOOT_SWORD:
     if (!player->has_sword) {

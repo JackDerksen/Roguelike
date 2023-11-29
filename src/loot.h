@@ -1,7 +1,7 @@
 #ifndef LOOT_H
 #define LOOT_H
 
-#include "characters.h"
+#include "player.h"
 #include <stdlib.h>
 
 typedef enum {
@@ -11,7 +11,7 @@ typedef enum {
   LOOT_MAX_TYPE // This is used for generating random loot
 } LootType;
 
-void handle_loot(Character *player, LootType loot);
+void handle_loot(Player *player, LootType loot);
 LootType generate_random_loot();
 
 #endif // LOOT_H

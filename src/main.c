@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "characters.h"
+#include "player.h"
 #include "collisions.h"
 #include "game_control.h"
 #include "loot.h"
@@ -12,7 +12,7 @@
 
 // Global variables
 Map game_map;
-Character player;
+Player player;
 char tile_under_player = '.';
 
 int main(void) {
@@ -39,7 +39,7 @@ int main(void) {
       tile_under_player = game_map.tiles[player.y][player.x];
     }
 
-    draw_character_status(&player);
+    draw_player_status(&player);
 
     attron(COLOR_PAIR(3));
     mvprintw(player.y, player.x, "@");

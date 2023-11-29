@@ -1,16 +1,15 @@
-#include "characters.h"
+#include "player.h"
 #include "map.h"
 #include <curses.h>
 
 // This module should contain all of the functions and data structures related
-// to each character (player, enemies, npcs, etc.) and their statistics,
-// inventory management, and other character-specific logic.
+// to each player (player, enemies, npcs, etc.) and their statistics,
+// inventory management, and other player-specific logic.
 
-extern Character player;
-extern Character orc;
+extern Player player;
 
-void draw_character(const Character *character) {
-  mvprintw(character->y, character->x, "@");
+void draw_player(const Player *player) {
+  mvprintw(player->y, player->x, "@");
 }
 
 void place_player(Map *map) {
@@ -32,8 +31,8 @@ void place_player_in_new_level(Map *map) {
 }
 
 void player_setup(Map *map) {
-  player.x = CHARACTER_START_X;
-  player.y = CHARACTER_START_Y;
+  player.x = PLAYER_START_X;
+  player.y = PLAYER_START_Y;
   player.old_x = player.x;
   player.old_y = player.y;
   player.max_health = 50;
@@ -44,7 +43,7 @@ void player_setup(Map *map) {
   place_player(map);
 }
 
-void move_player(int ch, Character *player, Map *map) {
+void move_player(int ch, Player *player, Map *map) {
   // Storing the old position
   player->old_x = player->x;
   player->old_y = player->y;
@@ -106,7 +105,7 @@ void draw_status_bar(int y, int x, int current, int max, int color_pair) {
 }
 
 // Draw both the status bars (1 cell = 2 health/armour points)
-void draw_character_status(const Character *player) {
+void draw_player_status(const Player *player) {
   int status_bar_y = MAP_HEIGHT + 1;
 
   draw_status_bar(status_bar_y, 0, player->health / 2, player->max_health / 2,
@@ -124,7 +123,7 @@ void draw_character_status(const Character *player) {
 // standing, and where they are now.
 // This function would make more sense in the map file, but that won't work
 // properly based on the way I'm importing my files :/
-void optimized_redraw(Character *player, char *tile_under_player, Map *map) {
+void optimized_redraw(Player *player, char *tile_under_player, Map *map) {
   // Redraw the tile that was under the player
   if (*tile_under_player == 'C') {
     attron(COLOR_PAIR(COLOR_PAIR_CHEST));
