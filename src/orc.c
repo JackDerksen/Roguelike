@@ -35,6 +35,15 @@ int manhattan_distance(int x1, int y1, int x2, int y2) {
   return abs(x1 - x2) + abs(y1 - y2);
 }
 
+bool is_space_occupied_by_orc(int x, int y, int excluding_orc_index) {
+  for (int i = 0; i < num_orcs; i++) {
+    if (i != excluding_orc_index && orcs[i].x == x && orcs[i].y == y) {
+      return true; // Another orc is already at this position
+    }
+  }
+  return false;
+}
+
 void move_orcs_towards_player(Player *player, Map *map) {
   // The orc will only move if the player is this close
   const int ORC_MOVEMENT_THRESHOLD = 10;
@@ -46,7 +55,8 @@ void move_orcs_towards_player(Player *player, Map *map) {
       int dy = (player->y > orcs[i].y) ? 1 : (player->y < orcs[i].y) ? -1 : 0;
 
       // Ensure orc doesn't walk into walls or other obstacles
-      if (!check_collision(map, orcs[i].y + dy, orcs[i].x + dx)) {
+      if (!check_collision(map, orcs[i].y + dy, orcs[i].x + dx) &&
+          !is_space_occupied_by_orc(orcs[i].x + dx, orcs[i].y + dy, i)) {
         orcs[i].x += dx;
         orcs[i].y += dy;
       }

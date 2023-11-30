@@ -149,3 +149,7 @@ void render_map(const Map *map) {
     }
   }
 }
+
+bool is_adjacent(int x1, int y1, int x2, int y2) {
+  return CUSTOM_ABS(x1 - x2) <= 1 && CUSTOM_ABS(y1 - y2) <= 1;
+}

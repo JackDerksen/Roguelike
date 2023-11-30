@@ -14,7 +14,7 @@
 Map game_map;
 Player player;
 char tile_under_player = '.';
-int fram_counter = 0;
+int frame_counter = 0;
 
 int main(void) {
   if (screen_setup() != 0) {
@@ -89,7 +89,7 @@ int main(void) {
       optimized_redraw(&player, &tile_under_player, &game_map);
     }
 
-    if (fram_counter % 2 == 0) {
+    if (frame_counter % 2 == 0) {
       move_orcs_towards_player(&player, &game_map);
     }
 
@@ -97,7 +97,7 @@ int main(void) {
     // Redraw only the tile that was under the player
     optimized_redraw(&player, &tile_under_player, &game_map);
 
-    fram_counter++;
+    frame_counter++;
     refresh();
   }
 

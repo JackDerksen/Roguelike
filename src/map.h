@@ -18,6 +18,7 @@
 // Utility macros
 #define min(a, b) ((a) < (b) ? (a) : (b))
 #define max(a, b) ((a) > (b) ? (a) : (b))
+#define CUSTOM_ABS(x) ((x) < 0 ? -(x) : (x))
 
 // Room structure
 typedef struct {
@@ -39,5 +40,6 @@ bool place_room(Map *map, Room room);
 void connect_rooms(Map *map, Room room1, Room room2);
 void generate_map(Map *map);
 void render_map(const Map *map);
+bool is_adjacent(int x1, int y1, int x2, int y2);
 
 #endif // MAP_H

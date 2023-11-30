@@ -64,15 +64,6 @@ void move_player(int ch, Player *player, Map *map) {
   case 'l': // Vim keybinding for right
     new_x++;
     break;
-  case 'a':
-    player->health -= 10;
-    break;
-  case 's':
-    player->armour -= 10;
-    break;
-  case 'd':
-    player->damage -= 10;
-    break;
   }
 
   player->move_counter++;
