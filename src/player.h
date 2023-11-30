@@ -1,5 +1,5 @@
-#ifndef PLAYERS_H
-#define PLAYERS_H
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include "collisions.h"
 #include "map.h"
@@ -9,7 +9,7 @@
 #define PLAYER_START_Y 10
 
 typedef struct {
-  int x, y; // Current position on the map
+  int x, y;
   int old_x, old_y;
   int health;
   int max_health;
@@ -28,4 +28,4 @@ void move_player(int ch, Player *player, Map *map);
 void optimized_redraw(Player *player, char *tile_under_player, Map *map);
 void draw_player_status(const Player *player);
 
-#endif // PLAYERS_H
+#endif // PLAYER_H

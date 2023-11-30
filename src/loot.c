@@ -1,6 +1,7 @@
 #include "loot.h"
-#include "player.h"
 #include "map.h"
+#include "player.h"
+#include <curses.h>
 
 // This file will contain a list of all the possible loot (armour, weapons,
 // potions, etc.), and some logic for looting chests. Maybe also for getting
@@ -11,17 +12,17 @@ void handle_loot(Player *player, LootType loot) {
   switch (loot) {
   case LOOT_SWORD:
     if (!player->has_sword) {
-      mvprintw(MAP_HEIGHT, 0, "Picked up a sword!");
+      mvprintw(MAP_HEIGHT, 2, "Picked up a sword!");
       player->damage += 20;
       player->has_sword = true;
       break;
     } else {
-      mvprintw(MAP_HEIGHT, 0, "You upgraded your sword!");
+      mvprintw(MAP_HEIGHT, 2, "You upgraded your sword!");
       player->damage += 10;
       break;
     }
   case LOOT_HEALTH:
-    mvprintw(MAP_HEIGHT, 0, "Picked up extra health!");
+    mvprintw(MAP_HEIGHT, 2, "Picked up extra health!");
     if (player->health <= 25) {
       player->health += 25;
     } else {
@@ -29,7 +30,7 @@ void handle_loot(Player *player, LootType loot) {
     }
     break;
   case LOOT_ARMOUR:
-    mvprintw(MAP_HEIGHT, 0, "Picked up extra armour!");
+    mvprintw(MAP_HEIGHT, 2, "Picked up extra armour!");
     if (player->armour <= 25) {
       player->armour += 25;
     } else {

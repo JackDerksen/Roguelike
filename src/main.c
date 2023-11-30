@@ -1,12 +1,12 @@
-#include <curses.h>
 #include <stdlib.h>
 #include <time.h>
 
-#include "player.h"
 #include "collisions.h"
 #include "game_control.h"
 #include "loot.h"
 #include "map.h"
+#include "orc.h"
+#include "player.h"
 #include "setup.h"
 #include "splash.h"
 
@@ -26,6 +26,8 @@ int main(void) {
   initialize_map(&game_map);
   generate_map(&game_map);
   player_setup(&game_map);
+  initialize_orcs();
+  place_orcs(&game_map);
   show_splash_screen();
 
   // --------------- Game Loop --------------- //
@@ -41,9 +43,9 @@ int main(void) {
 
     draw_player_status(&player);
 
-    attron(COLOR_PAIR(3));
+    attron(COLOR_PAIR(COLOR_PAIR_BLUE));
     mvprintw(player.y, player.x, "@");
-    attroff(COLOR_PAIR(3));
+    attroff(COLOR_PAIR(COLOR_PAIR_BLUE));
 
     // Get/handle inputs
     int ch = getch();
@@ -61,7 +63,7 @@ int main(void) {
       move_player(ch, &player, &game_map);
 
       if (player.move_counter >= 3) {
-        move(MAP_HEIGHT, 0);
+        move(MAP_HEIGHT, 2);
         clrtoeol();
         player.move_counter = 0;
       }
@@ -71,6 +73,8 @@ int main(void) {
     if (game_map.tiles[player.y][player.x] == 'E') {
       generate_map(&game_map);
       place_player_in_new_level(&game_map);
+      initialize_orcs();
+      place_orcs(&game_map);
       first_render = true;
     }
 

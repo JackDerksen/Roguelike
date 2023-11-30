@@ -3,16 +3,15 @@
 
 #include <ncurses.h>
 
-#define COLOR_PAIR_RED 1
-#define COLOR_PAIR_GREEN 2
-#define COLOR_PAIR_BLUE 3
-#define COLOR_PAIR_WALLS 4
-#define COLOR_PAIR_FLOORS 5
-#define COLOR_PAIR_EXIT 6
-#define COLOR_PAIR_CHEST 7
-#define COLOR_PAIR_GAME_TEXT 8
-#define COLOR_PAIR_HEALTH 9
-#define COLOR_PAIR_ARMOUR 10
+#define COLOR_PAIR_BLUE 1
+#define COLOR_PAIR_WALLS 2
+#define COLOR_PAIR_FLOORS 3
+#define COLOR_PAIR_EXIT 4
+#define COLOR_PAIR_CHEST 5
+#define COLOR_PAIR_GAME_TEXT 6
+#define COLOR_PAIR_HEALTH 7
+#define COLOR_PAIR_ARMOUR 8
+#define COLOR_PAIR_ORC 9
 
 int screen_setup(void);
 

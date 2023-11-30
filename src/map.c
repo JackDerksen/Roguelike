@@ -1,4 +1,7 @@
 #include "map.h"
+#include "orc.h"
+#include "setup.h"
+#include <curses.h>
 
 // I'm basically generating my maps by creating a big rectangle of wall tiles
 // and then "digging out" the rooms and the tunnels that connect them.
@@ -112,22 +115,36 @@ void generate_map(Map *map) {
 void render_map(const Map *map) {
   for (int y = 0; y < MAP_HEIGHT; y++) {
     for (int x = 0; x < MAP_WIDTH; x++) {
-      if (map->tiles[y][x] == '#') {
+      char display_char = map->tiles[y][x];
+
+      // Check for orc at this position
+      for (int i = 0; i < num_orcs; i++) {
+        if (orcs[i].x == x && orcs[i].y == y) {
+          display_char = 'O';
+          break;
+        }
+      }
+
+      if (display_char == '#') {
         attron(COLOR_PAIR(COLOR_PAIR_WALLS));
         mvprintw(y, x, "#");
         attroff(COLOR_PAIR(COLOR_PAIR_WALLS));
-      } else if (map->tiles[y][x] == '.') {
+      } else if (display_char == '.') {
         attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
         mvprintw(y, x, ".");
         attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
-      } else if (map->tiles[y][x] == 'E') {
+      } else if (display_char == 'E') {
         attron(COLOR_PAIR(COLOR_PAIR_EXIT));
         mvprintw(y, x, "E");
         attroff(COLOR_PAIR(COLOR_PAIR_EXIT));
-      } else if (map->tiles[y][x] == 'C') {
+      } else if (display_char == 'C') {
         attron(COLOR_PAIR(COLOR_PAIR_CHEST));
         mvprintw(y, x, "C");
         attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
+      } else if (display_char == 'O') {
+        attron(COLOR_PAIR(COLOR_PAIR_ORC));
+        mvprintw(y, x, "O");
+        attroff(COLOR_PAIR(COLOR_PAIR_ORC));
       }
     }
   }

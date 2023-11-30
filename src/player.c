@@ -1,16 +1,11 @@
 #include "player.h"
-#include "map.h"
-#include <curses.h>
-
-// This module should contain all of the functions and data structures related
-// to each player (player, enemies, npcs, etc.) and their statistics,
-// inventory management, and other player-specific logic.
+#include "orc.h"
+#include "setup.h"
 
 extern Player player;
 
-void draw_player(const Player *player) {
-  mvprintw(player->y, player->x, "@");
-}
+// void draw_player(const Player *player) { mvprintw(player->y, player->x, "@");
+// }
 
 void place_player(Map *map) {
   for (int y = 0; y < MAP_HEIGHT; y++) {
@@ -106,6 +101,8 @@ void draw_status_bar(int y, int x, int current, int max, int color_pair) {
 
 // Draw both the status bars (1 cell = 2 health/armour points)
 void draw_player_status(const Player *player) {
+  mvprintw(MAP_HEIGHT, 0, "> ");
+
   int status_bar_y = MAP_HEIGHT + 1;
 
   draw_status_bar(status_bar_y, 0, player->health / 2, player->max_health / 2,
@@ -124,15 +121,30 @@ void draw_player_status(const Player *player) {
 // This function would make more sense in the map file, but that won't work
 // properly based on the way I'm importing my files :/
 void optimized_redraw(Player *player, char *tile_under_player, Map *map) {
-  // Redraw the tile that was under the player
-  if (*tile_under_player == 'C') {
-    attron(COLOR_PAIR(COLOR_PAIR_CHEST));
-  } else {
-    attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
+  // Check if an orc was under the player
+  bool orc_under_player = false;
+  for (int i = 0; i < num_orcs; i++) {
+    if (orcs[i].x == player->old_x && orcs[i].y == player->old_y) {
+      orc_under_player = true;
+      break;
+    }
   }
-  mvprintw(player->old_y, player->old_x, "%c", *tile_under_player);
-  attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
-  attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
+
+  // Redraw the tile or orc that was under the player
+  if (orc_under_player) {
+    attron(COLOR_PAIR(COLOR_PAIR_ORC));
+    mvprintw(player->old_y, player->old_x, "O");
+    attroff(COLOR_PAIR(COLOR_PAIR_ORC));
+  } else {
+    if (*tile_under_player == 'C') {
+      attron(COLOR_PAIR(COLOR_PAIR_CHEST));
+    } else {
+      attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
+    }
+    mvprintw(player->old_y, player->old_x, "%c", *tile_under_player);
+    attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
+    attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
+  }
 
   // Update tile_under_player to the new tile
   *tile_under_player = map->tiles[player->y][player->x];
@@ -144,7 +156,7 @@ void optimized_redraw(Player *player, char *tile_under_player, Map *map) {
   }
 
   // Draw the player at the new position
-  attron(COLOR_PAIR(3));
+  attron(COLOR_PAIR(COLOR_PAIR_BLUE));
   mvprintw(player->y, player->x, "@");
-  attroff(COLOR_PAIR(3));
+  attroff(COLOR_PAIR(COLOR_PAIR_BLUE));
 }
