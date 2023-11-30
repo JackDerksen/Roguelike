@@ -102,9 +102,9 @@ void draw_player_status(const Player *player) {
   draw_status_bar(status_bar_y + 1, 0, player->armour / 2,
                   player->max_armour / 2, COLOR_PAIR_ARMOUR);
 
-  mvprintw(status_bar_y + 2, 0, "Player health: %d", player->health);
-  mvprintw(status_bar_y + 3, 0, "Player armour: %d", player->armour);
-  mvprintw(status_bar_y + 4, 0, "Player damage: %d", player->damage);
+  mvprintw(status_bar_y + 2, 0, "Health: %d", player->health);
+  mvprintw(status_bar_y + 3, 0, "Armour: %d", player->armour);
+  mvprintw(status_bar_y + 4, 0, "Damage: %d", player->damage);
 }
 
 // This optimizes the screen refresh by only redrawing where the player was

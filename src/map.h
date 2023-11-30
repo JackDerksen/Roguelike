@@ -9,11 +9,9 @@
 #define ROOM_MIN_SIZE 5
 #define ROOM_MAX_SIZE 15
 #define MAP_WIDTH 80
-#define MAP_HEIGHT 30
+#define MAP_HEIGHT 25
 #define MAX_ROOMS 15
 #define MAX_CHESTS 5
-// I'll probably have an offset here later if I want to add a health bar at
-// the top of the screen
 
 // Utility macros
 #define min(a, b) ((a) < (b) ? (a) : (b))
