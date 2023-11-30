@@ -24,5 +24,7 @@ extern int num_orcs;
 
 void initialize_orcs(void);
 void place_orcs(Map *map);
+int manhattan_distance(int x1, int y1, int x2, int y2);
+void move_orcs_towards_player(Player *player, Map *map);
 
 #endif // ORC_H
