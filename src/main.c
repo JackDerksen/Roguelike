@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "attacking.h"
 #include "collisions.h"
 #include "game_control.h"
 #include "loot.h"
@@ -64,6 +65,17 @@ int main(void) {
     } else {
       move_player(ch, &player, &game_map);
 
+      // Player's attack phase
+      if (ch == ' ') {
+        for (int i = 0; i < num_orcs; i++) {
+          if (is_adjacent(&player, &orcs[i])) {
+            player_attack_orc(&player, &orcs[i]);
+            break; // If multiple orcs are adjacent, this allows attacking only
+                   // one per turn
+          }
+        }
+      }
+
       if (player.move_counter >= 3) {
         move(MAP_HEIGHT, 2);
         clrtoeol();
@@ -90,9 +102,8 @@ int main(void) {
       optimized_redraw(&player, &tile_under_player, &game_map);
     }
 
-    if (frame_counter % 2 == 0) {
-      move_orcs_towards_player(&player, &game_map);
-    }
+    // Orcs' movement and attack phase
+    move_orcs_towards_player(&player, &game_map, frame_counter);
 
     render_map(&game_map);
     // Redraw only the tile that was under the player

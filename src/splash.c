@@ -34,9 +34,41 @@ void show_splash_screen(void) {
   printw("\n");
   printw("                              Reach the exit 'E'.\n");
   printw("\n");
-  printw("                            Press 'q' to quit, and use\n");
-  printw("                           arrow keys or 'hjkl' to move.\n");
-  printw("                           Press 'p' to pause the game.\n");
+  printw("                            Press 'q' to quit, and\n");
+  printw("                            'p' to pause the game.\n");
+  printw("                       Use the arrow keys or 'hjkl' to move.\n");
+  printw("                        Orcs will hunt you down and try to\n");
+  printw("                      kill you. Press 'space' to attack them!\n");
+  refresh();
+  getch();
+}
+
+void game_over_screen(void) {
+  clear();
+
+  printw("\n");
+
+  // This may look like shit right now because of line wrapping, but it should
+  // look good in game!
+
+  const char *art[] = {
+      "  ________                        ________",
+      " /  _____/_____    _____   ____   \\_____  \\___  __ ___________",
+      "/   \\  ___\\__  \\  /     \\_/ __ \\   /   |   \\  \\/ // __ \\_  __ "
+      "\\",
+      "\\    \\_\\  \\/ __ \\|  Y Y  \\  ___/  /    |    \\   /\\  ___/|  | "
+      "\\/",
+      " \\______  (____  /__|_|  /\\___  > \\_______  /\\_/  \\___  >__|",
+      "        \\/     \\/      \\/     \\/          \\/          \\/",
+      NULL};
+
+  for (int i = 0; art[i] != NULL; ++i) {
+    printw("%s\n", art[i]);
+  }
+
+  printw("\n");
+  printw("                      Press any key to exit.\n");
+
   refresh();
   getch();
 }

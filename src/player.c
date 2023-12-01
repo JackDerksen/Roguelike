@@ -34,6 +34,7 @@ void player_setup(Map *map) {
   player.max_armour = 50;
   player.health = player.max_health;
   player.armour = 0;
+  player.damage = 10;
   player.has_sword = false;
   place_player(map);
 }
