@@ -151,3 +151,8 @@ void render_map(const Map *map) {
     }
   }
 }
+
+void clear_dialogue(void) {
+  move(MAP_HEIGHT, 2);
+  clrtoeol();
+}

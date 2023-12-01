@@ -1,4 +1,5 @@
 #include "orc.h"
+#include "map.h"
 #include "splash.h"
 #include <curses.h>
 
@@ -84,6 +85,7 @@ void move_orcs_towards_player(Player *player, Map *map, int frame_counter) {
           }
         } else {
           // Display damage feedback
+          clear_dialogue();
           mvprintw(MAP_HEIGHT, 2, "Orc hits you! Damage: %d, Your health: %d ",
                    damageDealt, player->health);
         }

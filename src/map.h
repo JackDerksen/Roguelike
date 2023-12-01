@@ -38,5 +38,6 @@ bool place_room(Map *map, Room room);
 void connect_rooms(Map *map, Room room1, Room room2);
 void generate_map(Map *map);
 void render_map(const Map *map);
+void clear_dialogue(void);
 
 #endif // MAP_H

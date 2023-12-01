@@ -70,15 +70,13 @@ int main(void) {
         for (int i = 0; i < num_orcs; i++) {
           if (is_adjacent(&player, &orcs[i])) {
             player_attack_orc(&player, &orcs[i]);
-            break; // If multiple orcs are adjacent, this allows attacking only
-                   // one per turn
+            break;
           }
         }
       }
 
       if (player.move_counter >= 3) {
-        move(MAP_HEIGHT, 2);
-        clrtoeol();
+        clear_dialogue();
         player.move_counter = 0;
       }
     }

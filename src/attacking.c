@@ -1,4 +1,5 @@
 #include "attacking.h"
+#include "map.h"
 
 void player_attack_orc(Player *player, Orc *orc) {
   if (is_adjacent(player, orc)) {
@@ -7,9 +8,11 @@ void player_attack_orc(Player *player, Orc *orc) {
 
     if (orc->health <= 0) {
       orc->is_alive = false;
+      clear_dialogue();
       mvprintw(MAP_HEIGHT, 2, "Orc defeated! ");
     } else {
       // Display damage feedback
+      clear_dialogue();
       mvprintw(MAP_HEIGHT, 2, "You hit the orc! Damage: %d, Orc health: %d ",
                damageDealt, orc->health);
     }

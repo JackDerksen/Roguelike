@@ -113,30 +113,15 @@ void draw_player_status(const Player *player) {
 // This function would make more sense in the map file, but that won't work
 // properly based on the way I'm importing my files :/
 void optimized_redraw(Player *player, char *tile_under_player, Map *map) {
-  // Check if an orc was under the player
-  bool orc_under_player = false;
-  for (int i = 0; i < num_orcs; i++) {
-    if (orcs[i].x == player->old_x && orcs[i].y == player->old_y) {
-      orc_under_player = true;
-      break;
-    }
-  }
-
   // Redraw the tile or orc that was under the player
-  if (orc_under_player) {
-    attron(COLOR_PAIR(COLOR_PAIR_ORC));
-    mvprintw(player->old_y, player->old_x, "O");
-    attroff(COLOR_PAIR(COLOR_PAIR_ORC));
+  if (*tile_under_player == 'C') {
+    attron(COLOR_PAIR(COLOR_PAIR_CHEST));
   } else {
-    if (*tile_under_player == 'C') {
-      attron(COLOR_PAIR(COLOR_PAIR_CHEST));
-    } else {
-      attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
-    }
-    mvprintw(player->old_y, player->old_x, "%c", *tile_under_player);
-    attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
-    attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
+    attron(COLOR_PAIR(COLOR_PAIR_FLOORS));
   }
+  mvprintw(player->old_y, player->old_x, "%c", *tile_under_player);
+  attroff(COLOR_PAIR(COLOR_PAIR_CHEST));
+  attroff(COLOR_PAIR(COLOR_PAIR_FLOORS));
 
   // Update tile_under_player to the new tile
   *tile_under_player = map->tiles[player->y][player->x];
