@@ -77,7 +77,8 @@ void move_player(int ch, Player *player, Map *map) {
   }
 }
 
-void draw_status_bar(int y, int x, int current, int max, int color_pair) {
+void draw_status_bar(int y, int x, int current, int max, int color_pair,
+                     char symbol) {
   int width = 25; // Max width of the status bar
   int filled = (int)(((float)current / (float)max) * width);
 
@@ -86,7 +87,7 @@ void draw_status_bar(int y, int x, int current, int max, int color_pair) {
 
   attron(COLOR_PAIR(color_pair));
   for (int i = 0; i < filled; i++) {
-    mvprintw(y, x + i, " ");
+    mvprintw(y, x + i, "%c", symbol);
   }
   attroff(COLOR_PAIR(color_pair));
 }
@@ -98,10 +99,10 @@ void draw_player_status(const Player *player) {
   int status_bar_y = MAP_HEIGHT + 1;
 
   draw_status_bar(status_bar_y, 0, player->health / 2, player->max_health / 2,
-                  COLOR_PAIR_HEALTH);
+                  COLOR_PAIR_HEALTH, 'H');
 
   draw_status_bar(status_bar_y + 1, 0, player->armour / 2,
-                  player->max_armour / 2, COLOR_PAIR_ARMOUR);
+                  player->max_armour / 2, COLOR_PAIR_ARMOUR, 'A');
 
   mvprintw(status_bar_y + 2, 0, "Health: %d", player->health);
   mvprintw(status_bar_y + 3, 0, "Armour: %d", player->armour);
