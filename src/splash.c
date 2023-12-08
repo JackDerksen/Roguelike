@@ -1,5 +1,9 @@
 #include "splash.h"
 
+/**
+ * @brief Displays the title splash screen for the game, with some brief
+ * instructions on how to play.
+ */
 void show_splash_screen(void) {
   clear();
 
@@ -43,6 +47,9 @@ void show_splash_screen(void) {
   getch();
 }
 
+/**
+ * @brief Displays the game over splash screen.
+ */
 void game_over_screen(void) {
   clear();
 

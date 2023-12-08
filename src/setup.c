@@ -1,5 +1,15 @@
 #include "setup.h"
 
+/**
+ * @brief Sets up the initial screen for the game.
+ *
+ * Initializes the screen, sets up color pairs if colors are supported,
+ * configures input settings like keypad and echo, and hides the cursor. This
+ * function is called at the beginning of the game to prepare the terminal for
+ * the game interface.
+ *
+ * @return Returns 0 on successful setup.
+ */
 int screen_setup(void) {
   initscr();
 
@@ -14,7 +24,7 @@ int screen_setup(void) {
     init_pair(COLOR_PAIR_GAME_TEXT, COLOR_BLACK, COLOR_WHITE);
     init_pair(COLOR_PAIR_HEALTH, COLOR_RED, COLOR_RED);
     init_pair(COLOR_PAIR_ARMOUR, COLOR_GREEN, COLOR_GREEN);
-    init_pair(COLOR_PAIR_ORC, COLOR_BLACK, COLOR_RED);
+    init_pair(COLOR_PAIR_ORC, COLOR_RED, COLOR_BLACK);
   }
 
   // Allow for extended keyboard (like F1, F2 keys etc.)

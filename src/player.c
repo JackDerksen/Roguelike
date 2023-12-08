@@ -1,12 +1,16 @@
 #include "player.h"
-#include "orc.h"
 #include "setup.h"
 
 extern Player player;
 
-// void draw_player(const Player *player) { mvprintw(player->y, player->x, "@");
-// }
-
+/**
+ * @brief Places the player on a valid starting position on the map.
+ *
+ * Iterates through the map tiles to find the first available floor ('.') tile
+ * and places the player there.
+ *
+ * @param map Pointer to the Map structure where the player will be placed.
+ */
 void place_player(Map *map) {
   for (int y = 0; y < MAP_HEIGHT; y++) {
     for (int x = 0; x < MAP_WIDTH; x++) {
@@ -19,12 +23,28 @@ void place_player(Map *map) {
   }
 }
 
+/**
+ * @brief Places the player in a new level.
+ *
+ * Calls place_player to find a new starting position for the player when a new
+ * level of the game is started.
+ *
+ * @param map Pointer to the Map structure representing the new level.
+ */
 void place_player_in_new_level(Map *map) {
   place_player(map);
   player.old_x = player.x;
   player.old_y = player.y;
 }
 
+/**
+ * @brief Initializes the player's properties.
+ *
+ * Sets up the player's starting position, health, armour, damage, and other
+ * attributes at the beginning of the game.
+ *
+ * @param map Pointer to the Map structure where the player will be initialized.
+ */
 void player_setup(Map *map) {
   player.x = PLAYER_START_X;
   player.y = PLAYER_START_Y;
@@ -39,6 +59,17 @@ void player_setup(Map *map) {
   place_player(map);
 }
 
+/**
+ * @brief Moves the player based on input character.
+ *
+ * Updates the player's position depending on the input character (e.g., arrow
+ * keys). It also handles the logic for what happens when the player moves
+ * (e.g., encountering an obstacle).
+ *
+ * @param ch The input character indicating the direction of movement.
+ * @param player Pointer to the Player structure representing the game's player.
+ * @param map Pointer to the Map structure representing the game world.
+ */
 void move_player(int ch, Player *player, Map *map) {
   // Storing the old position
   player->old_x = player->x;
@@ -77,6 +108,18 @@ void move_player(int ch, Player *player, Map *map) {
   }
 }
 
+/**
+ * @brief Draws a status bar (e.g., health, armour) on the game screen.
+ *
+ * Renders a status bar at a specified location with the given attributes.
+ *
+ * @param y Y-coordinate for the status bar.
+ * @param x X-coordinate for the status bar.
+ * @param current The current value to be displayed in the status bar.
+ * @param max The maximum value of the status bar.
+ * @param color_pair Color pair for NCurses display.
+ * @param symbol Character symbol used to represent the status bar.
+ */
 void draw_status_bar(int y, int x, int current, int max, int color_pair,
                      char symbol) {
   int width = 25; // Max width of the status bar
@@ -92,7 +135,15 @@ void draw_status_bar(int y, int x, int current, int max, int color_pair,
   attroff(COLOR_PAIR(color_pair));
 }
 
-// Draw both the status bars (1 cell = 2 health/armour points)
+/**
+ * @brief Draws the player's current status on the screen.
+ *
+ * Displays the player's health, armour, and other status information on the
+ * game screen.
+ *
+ * @param player Pointer to the constant Player structure representing the
+ * game's player.
+ */
 void draw_player_status(const Player *player) {
   mvprintw(MAP_HEIGHT, 0, "> ");
 
@@ -109,10 +160,16 @@ void draw_player_status(const Player *player) {
   mvprintw(status_bar_y + 4, 0, "Damage: %d", player->damage);
 }
 
-// This optimizes the screen refresh by only redrawing where the player was
-// standing, and where they are now.
-// This function would make more sense in the map file, but that won't work
-// properly based on the way I'm importing my files :/
+/**
+ * @brief Optimizes and redraws the player and the tile they are on.
+ *
+ * This function is used to efficiently redraw the player's character and the
+ * tile they are standing on, to reflect any changes in the game state.
+ *
+ * @param player Pointer to the Player structure representing the game's player.
+ * @param tile_under_player Character representing the tile under the player.
+ * @param map Pointer to the Map structure representing the game world.
+ */
 void optimized_redraw(Player *player, char *tile_under_player, Map *map) {
   // Redraw the tile or orc that was under the player
   if (*tile_under_player == 'C') {

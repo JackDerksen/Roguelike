@@ -1,0 +1,24 @@
+\doxysection{loot.\+h}
+\hypertarget{loot_8h_source}{}\label{loot_8h_source}\index{src/loot.h@{src/loot.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LOOT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LOOT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}player.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00011\ \ \ LOOT\_SWORD,\ \ \ }
+\DoxyCodeLine{00012\ \ \ LOOT\_HEALTH,\ \ }
+\DoxyCodeLine{00013\ \ \ LOOT\_ARMOUR,\ \ }
+\DoxyCodeLine{00014\ \ \ LOOT\_MAX\_TYPE\ }
+\DoxyCodeLine{00015\ \}\ LootType;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ handle\_loot(\mbox{\hyperlink{structPlayer}{Player}}\ *player,\ LootType\ loot);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00028\ LootType\ generate\_random\_loot();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LOOT\_H}}
+
+\end{DoxyCode}

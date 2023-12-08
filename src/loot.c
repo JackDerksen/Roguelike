@@ -3,11 +3,17 @@
 #include "player.h"
 #include <curses.h>
 
-// This file will contain a list of all the possible loot (armour, weapons,
-// potions, etc.), and some logic for looting chests. Maybe also for getting
-// gold from enemies, although that might be better suited to the player
-// file (?).
-
+/**
+ * @brief Handles the looting mechanism in the game.
+ *
+ * This function manages the actions taken when the player loots items.
+ * It can include picking up weapons, armor, potions, etc., and updating the
+ * player's attributes accordingly. The specific actions depend on the type of
+ * loot encountered.
+ *
+ * @param player Pointer to the player's data structure.
+ * @param loot The type of loot to be handled (e.g., sword, health).
+ */
 void handle_loot(Player *player, LootType loot) {
   switch (loot) {
   case LOOT_SWORD:
@@ -52,4 +58,14 @@ void handle_loot(Player *player, LootType loot) {
   refresh();
 }
 
+/**
+ * @brief Generates a random loot item.
+ *
+ * This function is responsible for randomly selecting a loot item from
+ * the available set. Used to determine loot found in chests. The function
+ * ensures variety in the loot encountered by the player during the game.
+ *
+ * @return A LootType enumeration value representing the randomly selected loot
+ * item.
+ */
 LootType generate_random_loot() { return rand() % LOOT_MAX_TYPE; }

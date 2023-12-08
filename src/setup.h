@@ -13,6 +13,10 @@
 #define COLOR_PAIR_ARMOUR 8
 #define COLOR_PAIR_ORC 9
 
+/**
+ * @brief Sets up the initial screen for the game.
+ * @return Returns 0 on successful setup.
+ */
 int screen_setup(void);
 
 #endif // SETUP_H

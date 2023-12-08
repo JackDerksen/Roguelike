@@ -3,7 +3,6 @@
 #include <time.h>
 
 #include "attacking.h"
-#include "collisions.h"
 #include "game_control.h"
 #include "loot.h"
 #include "map.h"
@@ -18,6 +17,15 @@ Player player;
 char tile_under_player = '.';
 int frame_counter = 0;
 
+/**
+ * @brief The main function, contains the game loop.
+ *
+ * This is the main function of the game, where most other game logic is called.
+ * It contains the game loop which will run infinitely until the game crashes or
+ * the player quits.
+ *
+ * @return 0 if the game exited successfully (ie. on purpose, no crashes).
+ */
 int main(void) {
   if (screen_setup() != 0) {
     return 1;

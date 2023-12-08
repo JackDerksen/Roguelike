@@ -1,0 +1,47 @@
+\doxysection{orc.\+h}
+\hypertarget{orc_8h_source}{}\label{orc_8h_source}\index{src/orc.h@{src/orc.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ORC\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ORC\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}collisions.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}map.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}player.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}splash.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <ncurses.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <time.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ MAX\_ORCS\ 8}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00020\ \ \ \textcolor{keywordtype}{int}\ x,\ \mbox{\hyperlink{structOrc_a74da8399ee2ea961bdd9ce64f4773bf5}{y}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \textcolor{keywordtype}{int}\ old\_x,\ \mbox{\hyperlink{structOrc_a64cf4f16cc617769a3f41425db05ea56}{old\_y}};\ }
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structOrc_acf910764e2985484e71d9a75bdab1545}{health}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structOrc_a319a9799093624cbf87506fd65bdcf1b}{max\_health}};\ \ \ }
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structOrc_aaa73aacae10c654b8d6a695ad1f4d602}{damage}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structOrc_a01c6b4b6b9d4e6e5a881c25de137dae0}{move\_counter}};\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOrc_a5534c0be9f8cdd152c11cbcb299f9b0e}{is\_alive}};\ \ \ \ }
+\DoxyCodeLine{00027\ \}\ \mbox{\hyperlink{structOrc}{Orc}};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structOrc}{Orc}}\ orcs[];\ \ \ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ num\_orcs;\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ initialize\_orcs(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ place\_orcs(\mbox{\hyperlink{structMap}{Map}}\ *map);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{bool}\ is\_space\_occupied\_by\_orc(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ excluding\_orc\_index);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{bool}\ is\_space\_occupied\_by\_player(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \mbox{\hyperlink{structPlayer}{Player}}\ *player);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{bool}\ is\_adjacent(\mbox{\hyperlink{structPlayer}{Player}}\ *player,\ \mbox{\hyperlink{structOrc}{Orc}}\ *orc);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00077\ \textcolor{keywordtype}{int}\ manhattan\_distance(\textcolor{keywordtype}{int}\ x1,\ \textcolor{keywordtype}{int}\ y1,\ \textcolor{keywordtype}{int}\ x2,\ \textcolor{keywordtype}{int}\ y2);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{void}\ move\_orcs\_towards\_player(\mbox{\hyperlink{structPlayer}{Player}}\ *player,\ \mbox{\hyperlink{structMap}{Map}}\ *map,\ \textcolor{keywordtype}{int}\ frame\_counter);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ORC\_H}}
+
+\end{DoxyCode}
